@@ -1,0 +1,94 @@
+<!--
+"""
+/////////////////////////////////////////////////////////////////////////// 
+File Name:  home.html
+Group Number: 14
+Group Members Names: Arushi Gopinath, Mia Shajahan
+Group Members Seneca Email: fshajhan2@myseneca.ca agopinath@myseneca.ca
+Date: 2024-11-21
+Authenticity Declaration:
+I declare this submission is the result of our group work and has not been
+shared with any other groups/students or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////// 
+"""
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        img.logo {
+            margin: 20px 0;
+            max-width: 150px;
+        }
+        p {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+        }
+        .links {
+            margin-top: 30px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section with a welcome message -->
+    <header>
+        <h1>Welcome to Secure File Sharing</h1>
+    </header>
+
+    <!-- Main container holding the content -->
+    <div class="container">
+        <!-- Load static files such as images -->
+        {% load static %}
+        <!-- Display the logo image from the static directory -->
+        <img src="{% static 'icons/logo.png' %}" alt="Logo" class="logo">
+        
+        <!-- Welcome message and instructions for the user -->
+        <p>Welcome to our secure platform for file sharing. Please choose an action below:</p>
+        
+        <!-- Links for user registration and login -->
+        <div class="links">
+            <a href="{% url 'register' %}">Register</a> | 
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+</body>
+</html>

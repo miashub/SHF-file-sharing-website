@@ -1,0 +1,174 @@
+<!--
+File Name: dashboard.html
+Group Number: 14
+Group Members Names: Arushi Gopinath, Mia Shajahan
+Group Members Seneca Email: fshajhan2@myseneca.ca agopinath@myseneca.ca
+Date: 2024-11-21
+Authenticity Declaration:
+I declare this submission is the result of our group work and has not been
+shared with any other groups/students or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header, footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        nav {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #4CAF50;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 15px;
+            width: 45%;
+            min-width: 250px;
+        }
+        .section h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        .file-actions a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .file-actions a i {
+            margin-right: 5px;
+        }
+        .file-actions a:hover {
+            text-decoration: underline;
+        }
+        .empty-message {
+            text-align: center;
+            color: #888;
+        }
+        .share-logo {
+            display: block;
+            margin: 20px auto;
+            max-width: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<!-- Header Section with Welcome Message -->
+<header>
+    <h1>Welcome, {{ user.username }}</h1> <!-- Display username -->
+</header>
+
+<!-- Navigation Links for Upload and Logout -->
+<nav>
+    <a href="{% url 'upload' %}">Upload File</a> <!-- Upload link -->
+    <a href="{% url 'logout' %}">Logout</a> <!-- Logout link -->
+</nav>
+
+<div class="container">
+    <!-- Your Uploaded Files Section -->
+    <div class="section">
+        <h2>Your Uploaded Files:</h2>
+        {% if uploaded_files %}
+            {% for file in uploaded_files %}
+                <div class="file-item">
+                    <span>{{ file.file_name }}</span> <!-- Display file name -->
+                    <div class="file-actions">
+                        <!-- Download Icon -->
+                        <a href="{% url 'download' file.id %}">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                        <!-- Share Icon -->
+                        <a href="{% url 'share' file.id %}">
+                            <i class="fas fa-share-alt"></i> Share
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="empty-message">No files uploaded yet.</p> <!-- Message if no files -->
+        {% endif %}
+    </div>
+
+    <!-- Files Shared With You Section -->
+    <div class="section">
+        <h2>Files Shared With You:</h2>
+        {% if files_shared_with_me %}
+            {% for file in files_shared_with_me %}
+                <div class="file-item">
+                    <span>{{ file.file_name }} (Shared by: {{ file.user.username }})</span>
+                    <div class="file-actions">
+                        <!-- Download Icon -->
+                        <a href="{% url 'download' file.id %}">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="empty-message">No files shared with you yet.</p> <!-- Message if no shared files -->
+        {% endif %}
+    </div>
+
+    <!-- Files You've Shared With Others Section -->
+    <div class="section">
+        <h2>Files You've Shared With Others:</h2>
+        {% if shared_files %}
+            {% for file in shared_files %}
+                <div class="file-item">
+                    <span>{{ file.file_name }} (Shared with: {% for user in file.shared_with.all %}{{ user.username }}{% if not forloop.last %}, {% endif %}{% endfor %})</span> <!-- Display users shared with -->
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="empty-message">You haven't shared any files yet.</p> <!-- Message if no shared files -->
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

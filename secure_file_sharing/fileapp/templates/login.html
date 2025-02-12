@@ -1,0 +1,127 @@
+<!--
+"""
+/////////////////////////////////////////////////////////////////////////// 
+File Name:  login.html
+Group Number: 14
+Group Members Names: Arushi Gopinath, Mia Shajahan
+Group Members Seneca Email: fshajhan2@myseneca.ca agopinath@myseneca.ca
+Date: 2024-11-21
+Authenticity Declaration:
+I declare this submission is the result of our group work and has not been
+shared with any other groups/students or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////// 
+"""
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        p {
+            text-align: center;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Heading -->
+    <h1>Login</h1>
+
+    <!-- Login Form -->
+    <form method="post">
+        {% csrf_token %} <!-- CSRF Token for form security -->
+
+        <!-- Username Input Field -->
+        <p>
+            <label for="id_username">Username:</label> <!-- Username label -->
+            {{ form.username }} <!-- Render the username input field -->
+            {% if form.username.errors %} <!-- Check for errors in the username field -->
+                <div class="error">{{ form.username.errors.0 }}</div> <!-- Display error message -->
+            {% endif %}
+        </p>
+
+        <!-- Password Input Field -->
+        <p>
+            <label for="id_password">Password:</label> <!-- Password label -->
+            {{ form.password }} <!-- Render the password input field -->
+            {% if form.password.errors %} <!-- Check for errors in the password field -->
+                <div class="error">{{ form.password.errors.0 }}</div> <!-- Display error message -->
+            {% endif %}
+        </p>
+        
+        <!-- General Login Error Message -->
+        {% if form.non_field_errors %} <!-- Check for non-field errors (e.g., invalid login credentials) -->
+            <div class="error">{{ form.non_field_errors.0 }}</div> <!-- Display the error -->
+        {% endif %}
+        
+        <!-- Submit Button -->
+        <button type="submit">Login</button>
+
+        <!-- Link to Registration Page -->
+        <p> Don't have an account? <a href="{% url 'register' %}"> Register </a></p> <!-- Link to the register page -->
+
+    </form>
+
+</body>
+</html>

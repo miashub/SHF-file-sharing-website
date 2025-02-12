@@ -1,0 +1,166 @@
+<!--
+"""
+/////////////////////////////////////////////////////////////////////////// 
+File Name:  share.html
+Group Number: 14
+Group Members Names: Arushi Gopinath, Mia Shajahan
+Group Members Seneca Email: fshajhan2@myseneca.ca agopinath@myseneca.ca
+Date: 2024-11-21
+Authenticity Declaration:
+I declare this submission is the result of our group work and has not been
+shared with any other groups/students or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////// 
+"""
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+            color: #4CAF50;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 40px auto;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .user-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-checkbox input {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Success and error messages styling */
+        .message {
+            font-size: 1rem;
+            text-align: center;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 5px;
+            width: 50%; /* Center the message horizontally */
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message.error {
+            color: red;
+            background-color: #f8d7da; /* Light red background */
+        }
+
+        .message.success {
+            color: green;
+            background-color: #e8f5e9; /* Light green background */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Menu -->
+    <nav>
+        <!-- Link to Dashboard -->
+        <a href="{% url 'file_dashboard' %}">Dashboard</a> |
+        <!-- Link to File Upload page -->
+        <a href="{% url 'upload' %}">Upload</a> |
+        <!-- Link to Logout page -->
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+
+    <!-- Block for dynamic content (used in Django templates for extending) -->
+    {% block content %}{% endblock %}
+
+    <!-- Heading for Share File Page (Dynamic file name) -->
+    <h1>Share File: {{ file.file_name }}</h1>
+
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+        <p class="message {% if message.tags == 'error' %}error{% else %}success{% endif %}">
+            {{ message }}
+        </p>
+        {% endfor %}
+    </div>
+    {% endif %}
+        <!-- Form for sharing the file with selected users -->
+    <form method="post">
+        {% csrf_token %} <!-- CSRF token for security -->
+
+        <!-- Instruction text for user -->
+        <p>Select users to share with:</p>
+
+        <!-- Loop through all available users and display checkboxes -->
+        {% for user in users %}
+            <div class="user-checkbox">
+                <!-- Checkbox for each user, with username as the value -->
+                <input type="checkbox" name="shared_users" value="{{ user.username }}" id="user-{{ user.id }}">
+                <!-- Label for the checkbox with the username -->
+                <label for="user-{{ user.id }}">{{ user.username }}</label>
+            </div>
+        {% endfor %}
+
+        <!-- Submit button to share the file with selected users -->
+        <button type="submit">Share</button>
+    </form>
+
+</body>
+</html>
