@@ -101,9 +101,14 @@ python manage.py runserver
 
 ### Home Page
 <p align="center">
-  <img src="https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/home.png" width="400" alt="Home Page"/>
+  <img src="https://github.com/miashub/file-sharing/blob/4e9a3024827f780b526086811876b8fee9161bb5/screenshots/home.png" width="400" alt="Home Page"/>
   <br/><em>Landing page with login and register options.</em>
 </p>
+
+---
+
+### Login and Register
+<div align="center"> <img src="https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/login.png" width="380" alt="Login Screen" style="display:inline-block;margin-right:20px;"/> <img src="https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/register.png" width="380" alt="Register Screen" style="display:inline-block;"/> <br/><em>Side-by-side view of login and registration forms.</em> </div>
 
 ---
 
@@ -125,7 +130,7 @@ python manage.py runserver
 
 ### Bulk Share (Many Files)
 <p align="center">
-  <img src="https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/share%20with%20many.png" width="400" alt="Share with Many"/>
+  <img src="https://github.com/miashub/file-sharing/blob/4e9a3024827f780b526086811876b8fee9161bb5/screenshots/share%20with%20many.png" width="400" alt="Share with Many"/>
   <br/><em>Choose multiple files and share with a user in one go.</em>
 </p>
 
