@@ -92,8 +92,8 @@ python manage.py runserver
 | `file_dashboard.html` | Main user dashboard — shows uploaded/shared files                      |
 | `upload.html`         | Upload page with file encryption + preview logic                       |
 | `share.html`          | Used when sharing an individual file from the dashboard                |
-| `share_multiple.html` | Bulk sharing of multiple files with a selected user                    |
-| `nav.html`            | Reusable navigation bar — included across pages via `{% include %}`    |
+| `share_multiple.html` | Bulk sharing of multiple files with selected users                    |
+| `nav.html`            | Reusable navigation bar  |
 
 ---
 
@@ -160,7 +160,7 @@ python manage.py runserver
 
 This was a final course project built collaboratively by:
 - Mia Shajahan (@miashub)
-- Classmate(s) [Name, GitHub if applicable]
+- Arushi Gopinath
 
 To contribute:
 1. Fork the repository
