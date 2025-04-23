@@ -97,30 +97,45 @@ python manage.py runserver
 
 ---
 
-## 📸 UI Previews
+## 🖼️ UI Previews
 
-### **Home Page**
-![Home Page](https://github.com/miashub/file-sharing/blob/c73db836bb737936fb8bd54538f6a795df72ca75/screenshots/home.png)
-
----
-
-### **File Dashboard**
-![File Dashboard](https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/file%20dashboard.png)
+### Home Page
+<p align="center">
+  <img src="https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/home.png" width="400" alt="Home Page"/>
+  <br/><em>Landing page with login and register options.</em>
+</p>
 
 ---
 
-### **Single File Share Screen**
-![Single File to Many](https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/selected%20one%20file%20to%20many.png)
+### File Dashboard
+<p align="center">
+  <img src="https://github.com/miashub/file-sharing/blob/7e0949adf02e34f64c79fdaebd8a4b748f1fa68b/screenshots/file%20dashboard.png" width="400" alt="File Dashboard"/>
+  <br/><em>Manage uploaded and shared files from a central view.</em>
+</p>
 
 ---
 
-### **Bulk Share Page**
-![Share with Many](https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/share%20with%20many.png)
+### Share One File with Many
+<p align="center">
+  <img src="https://github.com/miashub/file-sharing/blob/7e0949adf02e34f64c79fdaebd8a4b748f1fa68b/screenshots/selected%20one%20file%20to%20many.png" width="400" alt="Share One File"/>
+  <br/><em>Select a single file and share with multiple users.</em>
+</p>
 
 ---
 
-### **Upload File Page**
-![Upload File](https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/upload%20file.png)
+### Bulk Share (Many Files)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/share%20with%20many.png" width="400" alt="Share with Many"/>
+  <br/><em>Choose multiple files and share with a user in one go.</em>
+</p>
+
+---
+
+### Upload File
+<p align="center">
+  <img src="https://github.com/miashub/file-sharing/blob/7e0949adf02e34f64c79fdaebd8a4b748f1fa68b/screenshots/upload%20file.png" width="400" alt="Upload File"/>
+  <br/><em>Encrypt and upload files through a simple interface.</em>
+</p>
 
 ---
 
@@ -161,4 +176,3 @@ This project is licensed under the **MIT License** — free to use, modify, and 
 - **Email:** [fathimas0207.email@example.com](mailto:fathimas0207.email@example.com)  
 - **GitHub:** [github.com/miashub](https://github.com/miashub)  
 - **LinkedIn:** [linkedin.com/in/mia-shajahan](https://linkedin.com/in/mia-shajahan)
-
