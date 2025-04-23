@@ -1,94 +1,388 @@
-<!--
-"""
-/////////////////////////////////////////////////////////////////////////// 
-File Name:  home.html
-Group Number: 14
-Group Members Names: Arushi Gopinath, Mia Shajahan
-Group Members Seneca Email: fshajhan2@myseneca.ca agopinath@myseneca.ca
-Date: 2024-11-21
-Authenticity Declaration:
-I declare this submission is the result of our group work and has not been
-shared with any other groups/students or 3rd party content provider. This submitted
-piece of work is entirely of my own creation.
-/////////////////////////////////////////////////////////////////////////// 
-"""
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-            font-size: 2.5rem;
-        }
-        img.logo {
-            margin: 20px 0;
-            max-width: 150px;
-        }
-        p {
-            text-align: center;
-            font-size: 1.2rem;
-            margin-top: 20px;
-        }
-        a {
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 80vh;
-        }
-        .links {
-            margin-top: 30px;
-            font-size: 1.2rem;
-        }
-    </style>
+  {% load static %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secure File Sharing | Encrypted Cloud Storage</title>
+  
+  <!-- Google Fonts Preconnect and Load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /**
+     * CSS Variables for consistent theming
+     * Primary purple theme with supporting colors
+     */
+    :root {
+      --primary: #6c0ad6;
+      --primary-light: #8a2be2;
+      --primary-dark: #4b0082;
+      --secondary: #00d4ff;
+      --white: #ffffff;
+      --light-bg: #f8f5ff;
+      --text: #2d2d3a;
+      --text-light: #6b6b7b;
+    }
+
+    /* Reset and base styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /**
+     * Main body styles
+     * Includes subtle animated gradient background
+     */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light-bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated gradient background effect */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 30%, rgba(106, 13, 173, 0.1) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(0, 212, 255, 0.1) 0%, transparent 40%);
+      z-index: -1;
+      animation: gradientPulse 15s ease infinite alternate;
+    }
+
+    /* Gradient pulse animation */
+    @keyframes gradientPulse {
+      0% { opacity: 0.8; }
+      50% { opacity: 1; }
+      100% { opacity: 0.8; }
+    }
+
+    /* Main content container */
+    .container {
+      max-width: 1000px;
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Header section styles */
+    .header {
+      margin-bottom: 2.5rem;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    /**
+     * Animated typing effect for main heading
+     * Includes gradient text and blinking cursor
+     */
+    h1 {
+      font-size: 3.0rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid var(--primary-light);
+      width: 0;
+      position: relative;
+      margin: 0 auto 1rem;
+      animation:
+        typing 3.5s steps(40, end) forwards,
+        blink 0.7s step-end 3.5s 5;
+    }
+
+    /* Typing animation keyframes */
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    /* Cursor blink animation */
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: var(--primary-light); }
+    }
+
+    /* Subtitle styles with fade-in animation */
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      animation: fadeIn 1s ease 1s forwards;
+      opacity: 0;
+    }
+
+    /* Logo container with floating animation */
+    .logo-container {
+      position: relative;
+      margin: 2rem auto;
+      width: 150px;
+      height: 150px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Logo styles with glass morphism effect */
+    .logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      box-shadow: 0 10px 30px rgba(106, 13, 173, 0.2);
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      padding: 1rem;
+      animation: fadeIn 0.8s ease 0.5s forwards;
+      opacity: 0;
+    }
+
+    /* Call-to-action buttons container */
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 1.2s forwards;
+      opacity: 0;
+    }
+
+    /* Base button styles */
+    .btn {
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Primary button styles */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(106, 13, 173, 0.3);
+    }
+
+    /* Secondary button styles */
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--primary);
+      border: 2px solid var(--primary-light);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 1);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(106, 13, 173, 0.2);
+    }
+
+    /* Animation keyframes */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    /* Particles background styles */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Individual particle styles */
+    .particle {
+      position: absolute;
+      background: rgba(106, 13, 173, 0.1);
+      border-radius: 50%;
+      animation: floatParticle linear infinite;
+    }
+
+    /* Particle floating animation */
+    @keyframes floatParticle {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(20px);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive styles for tablets */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .logo-container {
+        width: 120px;
+        height: 120px;
+      }
+
+      .btn {
+        padding: 0.7rem 1.5rem;
+        min-width: 160px;
+      }
+    }
+
+    /* Responsive styles for mobile devices */
+    @media (max-width: 480px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header section with a welcome message -->
-    <header>
-        <h1>Welcome to Secure File Sharing</h1>
-    </header>
+  <!-- 
+    PARTICLES BACKGROUND
+    Dynamic floating particles for visual interest
+  -->
+  <div class="particles" id="particles"></div>
 
-    <!-- Main container holding the content -->
-    <div class="container">
-        <!-- Load static files such as images -->
-        {% load static %}
-        <!-- Display the logo image from the static directory -->
-        <img src="{% static 'icons/logo.png' %}" alt="Logo" class="logo">
-        
-        <!-- Welcome message and instructions for the user -->
-        <p>Welcome to our secure platform for file sharing. Please choose an action below:</p>
-        
-        <!-- Links for user registration and login -->
-        <div class="links">
-            <a href="{% url 'register' %}">Register</a> | 
-            <a href="{% url 'login' %}">Login</a>
-        </div>
+  <!-- 
+    MAIN CONTENT CONTAINER
+    Contains all visible page content
+  -->
+  <div class="container">
+    <!-- Header section with animated title -->
+    <div class="header">
+      <h1>Welcome to Secure File Sharing</h1>
+      <p class="subtitle">Your end-to-end encrypted solution for safe file storage and sharing</p>
     </div>
+
+    <!-- Animated logo container -->
+    <div class="logo-container">
+      <img src="{% static 'icons/logo.png' %}" alt="Secure File Sharing Logo" class="logo">
+    </div>
+
+    <!-- Call-to-action buttons -->
+    <div class="cta-buttons">
+      <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+      <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * Creates floating particles for background animation
+     * Adjusts particle count based on screen size
+     */
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = window.innerWidth < 768 ? 20 : 30;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+
+        // Randomize particle size and position
+        const size = Math.random() * 10 + 5;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100 + 100}%`;
+        
+        // Randomize animation duration and delay
+        const duration = Math.random() * 10 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    /**
+     * Removes the typing cursor after animation completes
+     */
+    setTimeout(() => {
+      document.querySelector("h1").style.borderRight = "none";
+    }, 5200);
+
+    /**
+     * Initialize animations when page loads
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+    });
+  </script>
 </body>
 </html>

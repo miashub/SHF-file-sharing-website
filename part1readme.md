@@ -86,7 +86,7 @@ In secure_file_sharing/settings.py, add the following settings:
             ENCRYPTION_KEY = os.getenv('ENCRYPTION_KEY').encode()  # Use the environment variable
             fernet = Fernet(ENCRYPTI
             ON_KEY)  # Set up Fernet encryption
-            Step 4: Configure URLs
+            Step 4: onfigure URLs
 
 
 ->In secure_file_sharing/urls.py, add paths for your views:

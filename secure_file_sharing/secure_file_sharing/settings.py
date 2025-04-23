@@ -1,44 +1,23 @@
-"""
-/////////////////////////////////////////////////////////////////////////// 
-File Name:  settings.py
-Group Number: 14
-Group Members Names: Arushi Gopinath, Mia Shajahan
-Group Members Seneca Email: fshajhan2@myseneca.ca agopinath@myseneca.ca
-Date: 2024-11-21
-Authenticity Declaration:
-I declare this submission is the result of our group work and has not been
-shared with any other groups/students or 3rd party content provider. This submitted
-piece of work is entirely of my own creation.
-/////////////////////////////////////////////////////////////////////////// 
-"""
-
 from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-45#au9e+@96jij^8$103!z*!uyu8ym6#_k)*(nuz9s#v6c5c^v"
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
 
 # constants for file size
 MAX_FILE_SIZE_MB = 20 
 MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024
 
-# Load encryption key from environment variables
-load_dotenv() 
-ENCRYPTION_KEY = os.getenv('ENCRYPTION_KEY')
+# Load environment variables from .env file
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
+# Access the variables
+SECRET_KEY = os.getenv("SECRET_KEY")
+ENCRYPTION_KEY = os.getenv("ENCRYPTION_KEY")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -126,8 +105,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'   
-STATIC_ROOT = BASE_DIR / "staticfiles" 
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+TEMPLATES[0]['DIRS'] = [BASE_DIR / 'fileapp' / 'templates']  # Serve templates properly
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
