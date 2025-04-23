@@ -140,13 +140,25 @@ def delete_file(request, file_id):
 def upload_file(request):
     """
     Handle file upload, validate type and size, encrypt content, and store metadata.
+    Shows only upload-related messages.
     """
+    # Clear unrelated messages at the start
+    storage = messages.get_messages(request)
+    storage.used = True  # This consumes old messages so only new ones are shown
+
     if request.method == 'POST' and request.FILES.get('file'):
         uploaded_file = request.FILES['file']
         custom_name = request.POST.get('custom_name', '').strip()
 
-        allowed_extensions = ['pdf', 'jpg', 'jpeg', 'png', 'txt', 'mp3', 'mp4', 'zip', 'pptx']
+        allowed_extensions = ['pdf', 'jpg', 'jpeg', 'png', 'txt', 'mp3', 'mp4', 'zip', 'pptx', 'docx', 'csv']
         file_extension = uploaded_file.name.split('.')[-1].lower()
+
+        if file_extension == 'csv':
+            mime_type = 'text/csv'
+        elif file_extension == 'pptx':
+            mime_type = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+        elif file_extension == 'docx':
+            mime_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 
         if file_extension not in allowed_extensions:
             messages.error(request, "Invalid file type!")
@@ -220,7 +232,7 @@ def share_file(request, file_id):
                 messages.warning(request, f"User '{username}' does not exist.")
         file.save()
         messages.success(request, 'File shared successfully!')
-        return redirect('file_dashboard')
+        return redirect('share.html')
 
     users = User.objects.exclude(username=request.user.username)
     return render(request, 'share.html', {'file': file, 'users': users})
@@ -229,28 +241,47 @@ def share_file(request, file_id):
 @login_required
 def share_multiple_files(request):
     """
-    Allow a user to share multiple selected files with a specific user.
+    Handle sharing multiple files with one or more recipients.
+    - Expects 'recipients' as a comma-separated string (from hidden input).
+    - Expects 'files' as a list of file IDs (from checkboxes).
     """
     if request.method == 'POST':
-        recipient_username = request.POST.get('recipient')
+        recipient_usernames = request.POST.get('recipients', '').strip()
         file_ids = request.POST.getlist('files')
 
-        recipient = get_object_or_404(User, username=recipient_username)
+        if not recipient_usernames:
+            messages.error(request, "Please select at least one recipient.")
+            return redirect('share_multiple')
+
+        if not file_ids:
+            messages.error(request, "Please select at least one file to share.")
+            return redirect('share_multiple')
+
+        usernames = [u.strip() for u in recipient_usernames.split(',') if u.strip()]
+        recipients = User.objects.filter(username__in=usernames)
+
+        if not recipients.exists():
+            messages.error(request, "None of the selected recipients exist.")
+            return redirect('share_multiple')
+
         files_to_share = EncryptedFile.objects.filter(id__in=file_ids, user=request.user)
 
         for file in files_to_share:
-            file.shared_with.add(recipient)
+            file.shared_with.add(*recipients)
 
-        messages.success(request, f"Shared {len(files_to_share)} files with {recipient_username}")
+        messages.success(
+            request,
+            f"Successfully shared {len(files_to_share)} file(s) with {recipients.count()} user(s)."
+        )
         return redirect('file_dashboard')
 
+    # For GET: load users and files
     users = User.objects.exclude(id=request.user.id)
     uploaded_files = EncryptedFile.objects.filter(user=request.user)
     return render(request, 'share_multiple.html', {
         'users': users,
         'uploaded_files': uploaded_files,
     })
-
 
 def logout_view(request):
     """

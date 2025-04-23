@@ -238,8 +238,9 @@
     .shared-users {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.9rem;
       margin-top: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
     /* User badge styles */
@@ -328,6 +329,17 @@
                   <img src="{% url 'preview' file.id %}" alt="Image preview">
                 {% elif "video" in file.file_type %}
                   <video src="{% url 'preview' file.id %}#t=0.5" muted preload="metadata" controls></video>
+                {% elif "audio" in file.file_type or ".mp3" in file.file_name|lower %}
+                  <audio controls style="width: 100%;">
+                    <source src="{% url 'preview' file.id %}" type="{{ file.file_type }}">
+                    Your browser does not support the audio element.
+                  </audio>
+                {% elif ".csv" in file.file_name|lower or file.file_type == "text/csv" %}
+                  <img src="{% static 'icons/csv-icon.png' %}" alt="CSV" height="80">
+                {% elif ".ppt" in file.file_name|lower or file.file_type == "application/vnd.openxmlformats-officedocument.presentationml.presentation" %}
+                  <img src="{% static 'icons/pptx-icon.png' %}" alt="PPTX" height="80">
+                {% elif ".docx" in file.file_name|lower or file.file_type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" %}
+                  <img src="{% static 'icons/docx-icon.png' %}" alt="DOCX" height="80">
                 {% elif file.file_type == "application/pdf" %}
                   <img src="{% static 'icons/pdf-icon.png' %}" alt="PDF" height="80">
                 {% elif "text" in file.file_type %}
@@ -336,6 +348,8 @@
                   <img src="{% static 'icons/file-icon.png' %}" alt="File" height="80">
                 {% endif %}
               </div>
+              
+              
               
               <!-- File metadata -->
               <div class="file-info">
@@ -353,9 +367,10 @@
                 <a href="{% url 'share' file.id %}" class="action-button share-button">
                   <i class="fas fa-share-alt"></i> Share
                 </a>
-                <a href="{% url 'delete' file.id %}" class="action-button delete-button" onclick="return confirm('Are you sure you want to delete this file?')">
+                <a href="#" onclick="showDeleteModal('{% url 'delete' file.id %}')" class="action-button delete-button">
                   <i class="fas fa-trash-alt"></i> Delete
                 </a>
+                
               </div>
             </li>
           {% endfor %}
@@ -408,6 +423,17 @@
                   <img src="{% url 'preview' file.id %}" alt="Image preview">
                 {% elif "video" in file.file_type %}
                   <video src="{% url 'preview' file.id %}#t=0.5" muted preload="metadata" controls></video>
+                {% elif "audio" in file.file_type or ".mp3" in file.file_name|lower %}
+                  <audio controls style="width: 100%;">
+                    <source src="{% url 'preview' file.id %}" type="{{ file.file_type }}">
+                    Your browser does not support the audio element.
+                  </audio>
+                {% elif ".csv" in file.file_name|lower or file.file_type == "text/csv" %}
+                  <img src="{% static 'icons/csv-icon.png' %}" alt="CSV" height="80">
+                {% elif ".ppt" in file.file_name|lower or file.file_type == "application/vnd.openxmlformats-officedocument.presentationml.presentation" %}
+                  <img src="{% static 'icons/pptx-icon.png' %}" alt="PPTX" height="80">
+                {% elif ".docx" in file.file_name|lower or file.file_type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" %}
+                  <img src="{% static 'icons/docx-icon.png' %}" alt="DOCX" height="80">
                 {% elif file.file_type == "application/pdf" %}
                   <img src="{% static 'icons/pdf-icon.png' %}" alt="PDF" height="80">
                 {% elif "text" in file.file_type %}
@@ -416,7 +442,7 @@
                   <img src="{% static 'icons/file-icon.png' %}" alt="File" height="80">
                 {% endif %}
               </div>
-              
+
               <!-- File metadata -->
               <div class="file-info">
                 <div class="file-meta">
@@ -478,16 +504,21 @@
                   <img src="{% url 'preview' file.id %}" alt="Image preview">
                 {% elif "video" in file.file_type %}
                   <video src="{% url 'preview' file.id %}#t=0.5" muted preload="metadata" controls></video>
+                {% elif ".csv" in file.file_name|lower or file.file_type == "text/csv" %}
+                  <img src="{% static 'icons/csv-icon.png' %}" alt="CSV" height="80">
+                {% elif ".ppt" in file.file_name|lower or file.file_type == "application/vnd.openxmlformats-officedocument.presentationml.presentation" %}
+                  <img src="{% static 'icons/pptx-icon.png' %}" alt="PPTX" height="80">
+                {% elif ".docx" in file.file_name|lower or file.file_type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" %}
+                  <img src="{% static 'icons/docx-icon.png' %}" alt="DOCX" height="80">
+                {% elif "audio" in file.file_type or ".mp3" in file.file_name|lower %}
+                  <audio controls style="width: 100%;">
+                  <source src="{% url 'preview' file.id %}" type="{{ file.file_type }}">
+                  Your browser does not support the audio element.
+                </audio>
                 {% elif file.file_type == "application/pdf" %}
                   <img src="{% static 'icons/pdf-icon.png' %}" alt="PDF" height="80">
                 {% elif "text" in file.file_type %}
                   <img src="{% static 'icons/txt-icon.png' %}" alt="Text" height="80">
-                {% elif "zip" in file.file_type or ".zip" in file.file_name|lower %}
-                  <img src="{% static 'icons/zip-icon.png' %}" alt="ZIP" height="80">
-                {% elif "audio" in file.file_type or ".mp3" in file.file_name|lower %}
-                  <img src="{% static 'icons/mp3-icon.png' %}" alt="MP3" height="80">
-                {% elif ".ppt" in file.file_name|lower or ".pptx" in file.file_name|lower %}
-                  <img src="{% static 'icons/pptx-icon.png' %}" alt="PPT" height="80">
                 {% else %}
                   <img src="{% static 'icons/file-icon.png' %}" alt="File" height="80">
                 {% endif %}
@@ -510,16 +541,6 @@
                   <span>{{ file.uploaded_at|date:"M d, Y" }}</span>
                 </div>
               </div>
-              
-              <!-- File action buttons -->
-              <div class="file-actions">
-                <a href="{% url 'download' file.id %}" class="action-button download-button">
-                  <i class="fas fa-download"></i> Download
-                </a>
-                <a href="{% url 'share' file.id %}" class="action-button share-button">
-                  <i class="fas fa-share-alt"></i> Manage
-                </a>
-              </div>
             </li>
           {% endfor %}
         {% else %}
@@ -538,6 +559,37 @@
     </div>
   </div>
 </div>
+
+<div id="confirmModal" style="display:none; position:fixed; inset:0; background-color:rgba(0,0,0,0.5); z-index:999; align-items:center; justify-content:center;">
+  <div style="background:white; padding:2rem; border-radius:8px; max-width:400px; width:90%; text-align:center;">
+    <p style="margin-bottom:1.5rem;">Are you sure you want to delete this file?</p>
+    <div style="display:flex; justify-content:space-between; gap:1rem;">
+      <button onclick="hideModal()" style="flex:1; padding:0.9rem; background:#e5e5e5; border:none; border-radius:4px; cursor:pointer;">Cancel</button>
+      <button id="confirmDeleteBtn" style="flex:1; padding: 0.9em;rem; background:#8317f0; color:white; border:none; border-radius:4px; cursor:pointer;">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let deleteUrl = '';
+
+  function showDeleteModal(url) {
+    deleteUrl = url;
+    document.getElementById('confirmModal').style.display = 'flex';
+  }
+
+  function hideModal() {
+    document.getElementById('confirmModal').style.display = 'none';
+    deleteUrl = '';
+  }
+
+  document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+    if (deleteUrl) {
+      window.location.href = deleteUrl;
+    }
+  });
+</script>
+
 
 </body>
 </html>
