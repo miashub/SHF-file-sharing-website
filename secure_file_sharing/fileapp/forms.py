@@ -15,15 +15,16 @@ class RegistrationForm(forms.Form):
 
     def clean_username(self):
         """
-        Validates the username to allow only alphabetic characters and underscores.
+        Validates the username to allow alphanumeric characters and underscores.
         Also checks that the username is not already taken.
         """
         username = self.cleaned_data.get('username')
-        if not re.match(r'^[a-zA-Z_]+$', username):
-            raise forms.ValidationError("Username can only contain alphabetic characters and underscores.")
+        if not re.match(r'^[a-zA-Z0-9_]+$', username):
+            raise forms.ValidationError("Username can only contain letters, numbers, and underscores.")
         if User.objects.filter(username=username).exists():
             raise forms.ValidationError("This username is already taken.")
         return username
+
 
     def clean_password(self):
         """

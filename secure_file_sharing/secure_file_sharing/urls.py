@@ -21,6 +21,3 @@ urlpatterns = [
     path('share-multiple/', views.share_multiple_files, name='share_multiple'),
 ]
 
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

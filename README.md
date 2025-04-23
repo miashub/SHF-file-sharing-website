@@ -97,6 +97,33 @@ python manage.py runserver
 
 ---
 
+## 📸 UI Previews
+
+### **Home Page**
+![Home Page](https://github.com/miashub/file-sharing/blob/c73db836bb737936fb8bd54538f6a795df72ca75/screenshots/home.png)
+
+---
+
+### **File Dashboard**
+![File Dashboard](https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/file%20dashboard.png)
+
+---
+
+### **Single File Share Screen**
+![Single File to Many](https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/selected%20one%20file%20to%20many.png)
+
+---
+
+### **Bulk Share Page**
+![Share with Many](https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/share%20with%20many.png)
+
+---
+
+### **Upload File Page**
+![Upload File](https://raw.githubusercontent.com/miashub/secure_file_sharing/main/screenshots/upload%20file.png)
+
+---
+
 ### **Deployment Notes (Render)**
 
 - Make sure `gunicorn` is installed and added to `requirements.txt`
@@ -113,7 +140,7 @@ python manage.py runserver
 
 This was a final course project built collaboratively by:
 - Mia Shajahan (@miashub)
-- Arushi Gopinath
+- Classmate(s) [Name, GitHub if applicable]
 
 To contribute:
 1. Fork the repository
@@ -131,5 +158,7 @@ This project is licensed under the **MIT License** — free to use, modify, and 
 
 ### **Contact**
 
-- **GitHub:** [github.com/miashub](https://github.com/miashub)
-- **Email:** [fathimas0207.email@example.com](mailto:fathimas0207.email@example.com)
+- **Email:** [fathimas0207.email@example.com](mailto:fathimas0207.email@example.com)  
+- **GitHub:** [github.com/miashub](https://github.com/miashub)  
+- **LinkedIn:** [linkedin.com/in/mia-shajahan](https://linkedin.com/in/mia-shajahan)
+
