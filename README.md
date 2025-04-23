@@ -108,7 +108,7 @@ python manage.py runserver
 ---
 
 ### Login and Register
-<div align="center"> <img src="https://github.com/miashub/file-sharing/blob/8cf3d783d079cc3a129dcc9eeac30877df9c0978/screenshots/login.png" width="380" alt="Login Screen" style="display:inline-block;margin-right:20px;"/> <img src="https://github.com/miashub/file-sharing/blob/486f79b96dc993225d3cae5921fa99d64147fc8f/screenshots/register.png" width="380" alt="Register Screen" style="display:inline-block;"/> <br/><em>Side-by-side view of login and registration forms.</em> </div>
+<div align="center"> <img src="https://github.com/miashub/file-sharing/blob/6ea35714d5474f4d0e5fbfff657d4607f8e553ca/screenshots/loginui.png" width="380" alt="Login Screen" style="display:inline-block;margin-right:20px;"/> <img src="https://github.com/miashub/file-sharing/blob/6ea35714d5474f4d0e5fbfff657d4607f8e553ca/screenshots/registerui.png" width="380" alt="Register Screen" style="display:inline-block;"/> <br/><em>Side-by-side view of login and registration forms.</em> </div>
 
 ---
 
