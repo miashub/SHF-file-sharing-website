@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 
 import dj_database_url
 
-
-
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
