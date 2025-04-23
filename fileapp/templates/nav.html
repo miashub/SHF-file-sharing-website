@@ -1,0 +1,222 @@
+<nav style="background: linear-gradient(90deg, #6c0ad6, #8a2be2); padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center;">
+  <style>
+    /**
+     * NAVIGATION COMPONENT STYLES
+     * Responsive sticky header with gradient background
+     */
+    nav {
+      min-height: 70px; /* Fixed minimum height */
+      box-sizing: border-box;
+    }
+    
+    /* Navigation link styles */
+    nav a {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 0 1.25rem;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    /* Icon styles within nav links */
+    nav a i {
+      margin-right: 8px;
+      width: 16px;
+      text-align: center;
+    }
+
+    /* Hover state for links */
+    nav a:hover {
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    /* Animated underline effect */
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background-color: white;
+      margin: 0 auto;
+      transition: width 0.3s ease;
+    }
+
+    /* Show underline on hover and for active link */
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    /* Active link state */
+    nav a.active {
+      font-weight: 600; 
+    }
+
+    /* User avatar styles */
+    .user-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: #bd83f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease;
+    }
+
+    /* Avatar hover effect */
+    .user-avatar:hover {
+      transform: scale(1.05);
+    }
+
+    /* Left navigation section */
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 100%;
+    }
+
+    /* Page title styles */
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: white;
+      margin: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Welcome message container */
+    .welcome-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      height: 100%;
+    }
+
+    /* Welcome text styles */
+    .welcome-text {
+      color: white; 
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* Spacer for layout balance */
+    .spacer {
+      width: 136px; /* Matches welcome-wrap width */
+      visibility: hidden;
+    }
+
+    /* Right navigation section */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    /* Responsive styles for tablets and mobile */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        min-height: auto;
+      }
+
+      .nav-left, .nav-right {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Hide welcome message on mobile */
+      .welcome-wrap, .spacer {
+        display: none;
+      }
+
+      /* Adjust link spacing */
+      nav a {
+        margin: 0 0.75rem;
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+      }
+
+      /* Smaller title on mobile */
+      .page-title {
+        font-size: 1.25rem;
+      }
+    }
+
+    /* Accessibility focus styles */
+    nav a:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+  </style>
+
+  <!-- 
+    LEFT NAVIGATION SECTION
+    Contains page title and user welcome message
+  -->
+  <div class="nav-left">
+    <h1 class="page-title" aria-label="Current page">
+      {% if request.path == '/file-dashboard/' %}
+        File Dashboard
+      {% elif request.path == '/upload/' %}
+        Upload Files
+      {% elif request.path == '/share-multiple/' %}
+        Share Files
+      {% else %}
+        My Files
+      {% endif %}
+    </h1>
+    
+    {% if request.path == '/file-dashboard/' %}
+      <!-- Welcome message with user avatar -->
+      <div class="welcome-wrap" aria-label="Welcome message">
+        <div class="user-avatar" aria-hidden="true">{{ user.username|first|upper }}</div>
+        <span class="welcome-text">Welcome, {{ user.username }}</span>
+      </div>
+    {% else %}
+      <!-- Layout spacer for consistent alignment -->
+      <div class="spacer" aria-hidden="true"></div>
+    {% endif %}
+  </div>
+
+  <!-- 
+    RIGHT NAVIGATION SECTION
+    Contains main navigation links
+  -->
+  <div class="nav-right">
+    <a href="{% url 'file_dashboard' %}" 
+       class="{% if request.path == '/file-dashboard/' %}active{% endif %}"
+       aria-label="Dashboard">
+      <i class="fas fa-home" aria-hidden="true"></i>Dashboard
+    </a>
+    <a href="{% url 'upload' %}" 
+       class="{% if request.path == '/upload/' %}active{% endif %}"
+       aria-label="Upload files">
+      <i class="fas fa-upload" aria-hidden="true"></i>Upload
+    </a>
+    <a href="{% url 'share_multiple' %}" 
+       class="{% if request.path == '/share-multiple/' %}active{% endif %}"
+       aria-label="Share files">
+      <i class="fas fa-share-alt" aria-hidden="true"></i>Share
+    </a>
+    <a href="{% url 'logout' %}" aria-label="Logout">
+      <i class="fas fa-sign-out-alt" aria-hidden="true"></i>Logout
+    </a>
+  </div>
+</nav>
