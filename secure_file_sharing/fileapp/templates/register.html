@@ -405,7 +405,7 @@
         fetch(`/check_username/?username=${encodeURIComponent(username)}`)
           .then(res => res.json())
           .then(data => {
-            feedback.textContent = data.available ? "✓ Username available" : "✗ Username already taken";
+            feedback.textContent = data.available ? "Username available" : "Username already taken";
             feedback.className = data.available ? "feedback success" : "feedback error";
           })
           .catch(() => {
@@ -467,7 +467,7 @@
         feedback.textContent = "Passwords do not match";
         feedback.className = "feedback error";
       } else if (confirmPass) {
-        feedback.textContent = "✓ Passwords match";
+        feedback.textContent = "Passwords match";
         feedback.className = "feedback success";
       } else {
         feedback.textContent = "";

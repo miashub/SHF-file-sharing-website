@@ -2,13 +2,17 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-DEBUG = True
+import dj_database_url
+
+
+
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ['*']
 
 
 # constants for file size
-MAX_FILE_SIZE_MB = 20 
+MAX_FILE_SIZE_MB = int(os.getenv("MAX_FILE_SIZE_MB", 20))
 MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024
 
 # Load environment variables from .env file
@@ -18,6 +22,9 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # Access the variables
 SECRET_KEY = os.getenv("SECRET_KEY")
 ENCRYPTION_KEY = os.getenv("ENCRYPTION_KEY")
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
+}
 
 INSTALLED_APPS = [
     "django.contrib.admin",
