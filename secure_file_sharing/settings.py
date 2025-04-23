@@ -8,9 +8,7 @@ import dj_database_url
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['*']
-
-
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 # constants for file size
 MAX_FILE_SIZE_MB = int(os.getenv("MAX_FILE_SIZE_MB", 20))
 MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024
