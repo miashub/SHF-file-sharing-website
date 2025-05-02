@@ -110,20 +110,30 @@ def preview_file(request, file_id):
     Decrypts the content and returns a response with appropriate MIME type.
     """
     file = get_object_or_404(EncryptedFile, id=file_id)
+
+    # Permission check: only owner or users it's shared with
     if file.user != request.user and request.user not in file.shared_with.all():
         return HttpResponse("Unauthorized", status=401)
 
     try:
-        decrypted = cipher.decrypt(file.file_content)
+        # Ensure file_content is bytes (handles memoryview or BinaryField issues)
+        decrypted = cipher.decrypt(bytes(file.file_content))
+
+        # Guess or use stored MIME type
         content_type = file.file_type or mimetypes.guess_type(file.file_name)[0] or 'application/octet-stream'
 
-        if content_type.startswith(('image', 'video', 'text')) or content_type == 'application/pdf':
-            return HttpResponse(decrypted, content_type=content_type)
+        # Previewable content types
+        previewable = content_type.startswith(('image', 'video', 'text')) or content_type == 'application/pdf'
+
+        if previewable:
+            response = HttpResponse(decrypted, content_type=content_type)
+            response['Content-Disposition'] = 'inline'
+            return response
 
         return HttpResponse("Preview not supported.", status=400)
+
     except Exception as e:
         return HttpResponse(f"Unable to preview this file. Error: {str(e)}", status=500)
-
 
 @login_required
 def delete_file(request, file_id):
