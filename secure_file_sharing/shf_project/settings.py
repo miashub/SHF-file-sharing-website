@@ -4,9 +4,13 @@ from dotenv import load_dotenv
 
 import dj_database_url
 
+
+
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = ['*']
+
+
 # constants for file size
 MAX_FILE_SIZE_MB = int(os.getenv("MAX_FILE_SIZE_MB", 20))
 MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024
@@ -43,7 +47,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "secure_file_sharing.urls"
+ROOT_URLCONF = "shf_project.urls"
 
 TEMPLATES = [
     {
@@ -61,19 +65,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "secure_file_sharing.wsgi.application"
+WSGI_APPLICATION = "shf_project.wsgi.application"
 
 
 # Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
