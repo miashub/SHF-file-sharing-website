@@ -38,7 +38,7 @@ A collaborative course project built with **Django**, this web app allows users 
 #### **1. Clone the Repository**
 ```bash
 git clone https://github.com/yourusername/secure-file-sharing.git
-cd secure-file-sharing
+cd secure_file_sharing
 ```
 
 #### **2. Setup Virtual Environment**
